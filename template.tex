@@ -1,0 +1,32 @@
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+\setbeameroption{show notes}
+\setbeameroption{show notes on second screen=right}
+\setbeamercolor{background canvas}{bg=black}
+\setbeamercolor{normal text}{fg=white}\usebeamercolor*{normal text}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\begin{frame}
+  \begin{center}
+    \textbf{>>Außer Kontrolle!<<}\\
+    \emph{BDP Junge Bühne Berlin // anarchie in nordberlin}
+  \end{center}
+\end{frame}
+
+{% for line in lines %} 
+  \usebeamercolor*{normal text}
+  \begin{frame}
+    \begin{center}
+      {% for l in line.en %} {{ l }} {% endfor %}
+    \end{center}
+  \end{frame}
+  \note[itemize]{
+    {% for l in line.de %} \item {{ l }} {% endfor %}
+  }
+{% endfor %}
+
+\end{document}
