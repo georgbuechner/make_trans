@@ -1,3 +1,4 @@
+from numpy import append
 import pandas as pd
 from dataclasses import dataclass 
 from jinja2 import Environment, FileSystemLoader
@@ -8,34 +9,29 @@ class Line:
     speaker: str 
     de: List[str]
     en: List[str]
+    index: int
 
     def str(self) -> str: 
         return f"Speaker: {self.speaker}, de: {self.de}, en: {self.en}"
 
-lines = []
-counter = 0
-# with open('inp.csv', newline='') as csvfile:
-#     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-#     for row in spamreader:
-#         print(counter, ": ", row)
-#         speaker = row[0] 
-#         de = row[1] 
-#         en = row[2] if len(row) > 2 else f"missing translation: {de}"
-# 
-#         lines.append(Line(speaker, de, en))
-#         counter += 1
 
 df = pd.read_excel(r"inp.xlsx", header=None)
 print(df)
 
+lines = []
 for index, row in df.iterrows():
-    speaker = row[0]
+    speaker = str(row[0])
     de = str(row[1])
     en = str(row[2])
+    line_num = (index)+1
 
     list_de = de.split("\n")
     list_en = en.split("\n")
-    lines.append(Line(speaker, list_de, list_en))
+
+    if list_de[0] != "nan" or list_en[0] != "nan":
+        lines.append(Line(speaker, list_de, list_en, line_num))
+    else: 
+        lines[-1].de.append("SZENEN ENDE!")
 
 for i in range(10): 
     print(lines[i].str())

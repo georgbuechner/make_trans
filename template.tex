@@ -21,11 +21,11 @@
   \usebeamercolor*{normal text}
   \begin{frame}
     \begin{center}
-      {% for l in line.en %} {{ l }} {% endfor %}
+      {% for l in line.en %} {{ l }} \\ {% endfor %}
     \end{center}
   \end{frame}
   \note[itemize]{
-    {% for l in line.de %} \item {{ l }} {% endfor %}
+    {% for l in line.de %} \item[{{line.index}}:] {{ l }} {% endfor %}
   }
 {% endfor %}
 
